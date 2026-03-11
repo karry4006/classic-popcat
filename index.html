@@ -57,14 +57,40 @@
             <img src="imgs/popcat.svg" alt = "POPCAT CLASSIC" class ="title-box">
             <div class="cat-img text-box" id="p">0</div>
         </div>
-        <div class = "container" id = "p2"></div>
+        <div class = "container" id = "p2"></div>   
         <script>
             let count = 0;
             let catImg = document.getElementById('p');
+            const clickCooldownMs = 25;
+            let lastClickAt = 0;
+            const popSounds = [
+                new Audio('pops/pop1.mp3'),
+                new Audio('pops/pop2.mp3'),
+                new Audio('pops/pop3.mp3'),
+                new Audio('pops/pop4.mp3')
+            ];
+
+            popSounds.forEach((sound) => {
+                sound.preload = 'auto';
+            });
+
+            function playPopSound() {
+                const sound = popSounds[Math.floor(Math.random() * popSounds.length)];
+                sound.currentTime = 0;
+                sound.play().catch(() => {});
+            }
+
             function addCount() {
+                const now = Date.now();
+                if (now - lastClickAt < clickCooldownMs) {
+                    return;
+                }
+
+                lastClickAt = now;
                 count++;
                 catImg.innerHTML = count;
                 catImg.id = 'op';
+                playPopSound();
             }
             let close = () => {
                 catImg.id = 'p';
