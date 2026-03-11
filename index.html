@@ -57,5 +57,20 @@
             <img src="imgs/popcat.svg" alt = "POPCAT CLASSIC" class ="title-box">
             <div class="cat-img text-box" id="p">0</div>
         </div>
+        <div class = "container" id = "p2"></div>
+        <script>
+            let count = 0;
+            let catImg = document.getElementById('p');
+            function addCount() {
+                count++;
+                catImg.innerHTML = count;
+                catImg.id = 'op';
+            }
+            let close = () => {
+                catImg.id = 'p';
+            }
+            document.addEventListener('pointerdown', addCount);
+            document.addEventListener('pointerup', close);
+        </script>    
     </body>
 </html>
